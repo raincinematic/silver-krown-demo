@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Silver Krown Productions — Stories That Were Always Worth Telling</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:    #0A0A0A;
+      --deep:     #111118;
+      --silver:   #C8C8D4;
+      --silver-bright: #E8E8F0;
+      --plum:     #4A1E5E;
+      --plum-mid: #6B2D82;
+      --gold:     #B8963C;
+      --gold-light: #D4AF5A;
+      --white:    #F4F2F8;
+      --muted:    #7A7A8C;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.4rem 3rem;
+      background: linear-gradient(to bottom, rgba(10,10,10,0.95), transparent);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 300;
+      letter-spacing: 0.22em;
+      color: var(--silver);
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+
+    .nav-logo span {
+      color: var(--gold);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--silver);
+      text-decoration: none;
+      opacity: 0.8;
+      transition: opacity 0.2s, color 0.2s;
+    }
+
+    .nav-links a:hover { opacity: 1; color: var(--gold-light); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 640px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    /* Scroll-driven clapperboard animation canvas */
+    #clapCanvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, rgba(74,30,94,0.18) 0%, rgba(10,10,10,0.72) 70%);
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.4rem;
+      padding: 0 2rem;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.65rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0.9;
+    }
+
+    .hero-krown {
+      width: 72px;
+      height: auto;
+      filter: drop-shadow(0 0 24px rgba(184,150,60,0.5));
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.2rem, 9vw, 7.5rem);
+      font-weight: 300;
+      line-height: 0.92;
+      letter-spacing: -0.01em;
+      color: var(--silver-bright);
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+
+    .hero-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1rem, 2.2vw, 1.4rem);
+      font-style: italic;
+      font-weight: 300;
+      color: var(--silver);
+      opacity: 0.85;
+      max-width: 540px;
+      line-height: 1.6;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 0.6rem;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: var(--black);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.9rem 2.2rem;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--silver);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.9rem 2.2rem;
+      border: 1px solid rgba(200,200,212,0.35);
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold-light); }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      opacity: 0.5;
+      animation: scrollPulse 2.2s ease-in-out infinite;
+    }
+
+    .hero-scroll span {
+      font-size: 0.55rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--silver);
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; transform: translateX(-50%) translateY(0); }
+      50% { opacity: 0.8; transform: translateX(-50%) translateY(5px); }
+    }
+
+    /* ── SECTION BASE ── */
+    section { padding: 7rem 2rem; }
+
+    .section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-eyebrow {
+      font-size: 0.62rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+      display: block;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 300;
+      line-height: 1.08;
+      color: var(--silver-bright);
+      margin-bottom: 1.6rem;
+    }
+
+    .section-title em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+
+    .divider-gold {
+      width: 48px;
+      height: 1px;
+      background: var(--gold);
+      margin: 1.6rem 0;
+    }
+
+    /* ── VISION ── */
+    #vision {
+      background: var(--deep);
+      border-top: 1px solid rgba(184,150,60,0.12);
+    }
+
+    .vision-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .vision-text p {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: var(--silver);
+      opacity: 0.88;
+      margin-bottom: 1.4rem;
+    }
+
+    .vision-text p strong {
+      color: var(--silver-bright);
+      font-weight: 500;
+    }
+
+    .manifesto {
+      border-left: 2px solid var(--gold);
+      padding-left: 1.8rem;
+      margin: 2.4rem 0;
+    }
+
+    .manifesto p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-style: italic;
+      font-weight: 300;
+      line-height: 1.5;
+      color: var(--silver-bright);
+      opacity: 1 !important;
+      margin-bottom: 0 !important;
+    }
+
+    .vision-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+
+    .stat-box {
+      background: rgba(74,30,94,0.15);
+      border: 1px solid rgba(184,150,60,0.15);
+      padding: 2.2rem 1.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .stat-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 300;
+      color: var(--gold-light);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ── NOW CASTING ── */
+    #casting {
+      background: var(--black);
+      position: relative;
+      overflow: hidden;
+    }
+
+    #casting::before {
+      content: '';
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(74,30,94,0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .casting-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 3.5rem;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .casting-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(184,150,60,0.12);
+      border: 1px solid rgba(184,150,60,0.35);
+      padding: 0.5rem 1.1rem;
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+    }
+
+    .casting-badge .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+      animation: blink 1.6s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.2; }
+    }
+
+    .casting-meta {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .meta-label {
+      font-size: 0.58rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .meta-value {
+      font-size: 0.8rem;
+      color: var(--silver);
+      font-weight: 400;
+    }
+
+    .roles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2px;
+      margin-bottom: 3.5rem;
+    }
+
+    .role-card {
+      background: var(--deep);
+      border: 1px solid rgba(200,200,212,0.06);
+      padding: 2.2rem 1.8rem;
+      position: relative;
+      transition: border-color 0.25s, transform 0.2s;
+      cursor: default;
+    }
+
+    .role-card:hover {
+      border-color: rgba(184,150,60,0.3);
+      transform: translateY(-3px);
+    }
+
+    .role-tag {
+      display: inline-block;
+      font-size: 0.58rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.8rem;
+      margin-bottom: 1.1rem;
+      font-weight: 600;
+    }
+
+    .tag-plum { background: rgba(107,45,130,0.35); color: #C090E0; border: 1px solid rgba(107,45,130,0.5); }
+    .tag-gold { background: rgba(184,150,60,0.18); color: var(--gold-light); border: 1px solid rgba(184,150,60,0.4); }
+    .tag-silver { background: rgba(200,200,212,0.1); color: var(--silver); border: 1px solid rgba(200,200,212,0.25); }
+    .tag-deep { background: rgba(30,20,50,0.6); color: #A088C0; border: 1px solid rgba(100,70,140,0.4); }
+
+    .role-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.7rem;
+      font-weight: 300;
+      color: var(--silver-bright);
+      margin-bottom: 0.3rem;
+      line-height: 1.1;
+    }
+
+    .role-demo {
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      margin-bottom: 1.4rem;
+    }
+
+    .role-traits {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .role-traits li {
+      font-size: 0.78rem;
+      color: var(--silver);
+      opacity: 0.8;
+      padding-left: 1rem;
+      position: relative;
+    }
+
+    .role-traits li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+      font-size: 0.65rem;
+    }
+
+    .submission-requirements {
+      background: var(--deep);
+      border: 1px solid rgba(184,150,60,0.2);
+      padding: 2.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    .req-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 300;
+      color: var(--silver-bright);
+      margin-bottom: 1.2rem;
+    }
+
+    .req-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+
+    .req-list li {
+      font-size: 0.82rem;
+      color: var(--silver);
+      opacity: 0.85;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+
+    .req-list li::before {
+      content: '';
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .deadline-block {
+      border-left: 2px solid var(--plum-mid);
+      padding-left: 1.4rem;
+    }
+
+    .deadline-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .deadline-date {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--gold-light);
+      line-height: 1;
+      margin-bottom: 0.8rem;
+    }
+
+    .deadline-details {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .deadline-detail {
+      font-size: 0.75rem;
+      color: var(--silver);
+      opacity: 0.75;
+    }
+
+    /* ── SUBMISSION FORM ── */
+    #submit {
+      background: var(--deep);
+      border-top: 1px solid rgba(184,150,60,0.1);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+      margin-top: 2.5rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-group.full { grid-column: 1 / -1; }
+
+    .form-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .form-input, .form-select, .form-textarea {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(200,200,212,0.15);
+      color: var(--white);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 300;
+      padding: 0.85rem 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+      appearance: none;
+    }
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--gold);
+    }
+
+    .form-select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23B8963C' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      padding-right: 2.5rem;
+      cursor: pointer;
+    }
+
+    .form-select option { background: #1a1a2a; color: var(--white); }
+
+    .form-textarea { resize: vertical; min-height: 120px; }
+
+    .form-note {
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-top: 0.3rem;
+      line-height: 1.5;
+    }
+
+    .form-submit {
+      margin-top: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .submit-note {
+      font-size: 0.68rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── FOUNDER ── */
+    #founder {
+      background: var(--black);
+      border-top: 1px solid rgba(184,150,60,0.1);
+    }
+
+    .founder-grid {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .founder-image-wrap {
+      position: relative;
+    }
+
+    .founder-image-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -12px;
+      border: 1px solid rgba(184,150,60,0.2);
+      pointer-events: none;
+    }
+
+    .founder-image-wrap::after {
+      content: '';
+      position: absolute;
+      bottom: -20px; right: -20px;
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, rgba(74,30,94,0.4), transparent);
+      z-index: -1;
+    }
+
+    .founder-img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(15%);
+    }
+
+    .founder-text .section-title { margin-bottom: 0.8rem; }
+
+    .founder-text p {
+      font-size: 0.95rem;
+      line-height: 1.9;
+      color: var(--silver);
+      opacity: 0.85;
+      margin-bottom: 1.2rem;
+    }
+
+    .founder-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      text-decoration: none;
+      margin-top: 0.5rem;
+      transition: gap 0.2s;
+    }
+
+    .founder-link:hover { gap: 0.9rem; }
+
+    .founder-link::after { content: '→'; }
+
+    /* ── COLLABORATE ── */
+    #collaborate {
+      background: linear-gradient(135deg, rgba(74,30,94,0.3) 0%, rgba(10,10,10,1) 60%);
+      border-top: 1px solid rgba(107,45,130,0.2);
+      text-align: center;
+    }
+
+    #collaborate .section-inner {
+      max-width: 680px;
+    }
+
+    #collaborate .section-title { margin-bottom: 1rem; }
+
+    #collaborate p {
+      font-size: 1rem;
+      line-height: 1.85;
+      color: var(--silver);
+      opacity: 0.8;
+      margin-bottom: 2.5rem;
+    }
+
+    .collab-options {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+
+    .collab-tag {
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--silver);
+      border: 1px solid rgba(200,200,212,0.2);
+      padding: 0.5rem 1.1rem;
+      opacity: 0.7;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black);
+      border-top: 1px solid rgba(200,200,212,0.07);
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.2rem;
+    }
+
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 300;
+      letter-spacing: 0.3em;
+      color: var(--silver);
+      text-transform: uppercase;
+    }
+
+    .footer-logo span { color: var(--gold); }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--silver); }
+
+    .footer-credit {
+      font-size: 0.65rem;
+      color: var(--muted);
+      opacity: 0.6;
+      letter-spacing: 0.08em;
+    }
+
+    .footer-credit a {
+      color: var(--gold);
+      text-decoration: none;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+
+    .footer-credit a:hover { opacity: 1; }
+
+    /* ── CANVAS ANIMATION ── */
+    #clapCanvas { display: block; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1.2rem 1.5rem; }
+      .nav-links { display: none; }
+      .vision-grid, .founder-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .submission-requirements { grid-template-columns: 1fr; }
+      .form-grid { grid-template-columns: 1fr; }
+      .form-group.full { grid-column: 1; }
+      section { padding: 5rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">Silver <span>Krown</span> Productions</a>
+    <ul class="nav-links">
+      <li><a href="#vision">Vision</a></li>
+      <li><a href="#casting">Now Casting</a></li>
+      <li><a href="#submit">Submit</a></li>
+      <li><a href="#founder">Founder</a></li>
+      <li><a href="#collaborate">Collaborate</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <canvas id="clapCanvas"></canvas>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <span class="hero-eyebrow">Atlanta, Georgia · Est. by Rolonda Rochelle</span>
+
+      <!-- SVG Crown -->
+      <svg class="hero-krown" viewBox="0 0 80 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 50 L10 28 L25 40 L40 10 L55 40 L70 28 L70 50 Z" fill="none" stroke="#B8963C" stroke-width="1.5" stroke-linejoin="round"/>
+        <line x1="10" y1="50" x2="70" y2="50" stroke="#B8963C" stroke-width="1.5"/>
+        <circle cx="10" cy="28" r="3" fill="#B8963C"/>
+        <circle cx="40" cy="10" r="3" fill="#B8963C"/>
+        <circle cx="70" cy="28" r="3" fill="#B8963C"/>
+        <rect x="18" y="50" width="8" height="5" fill="#B8963C" opacity="0.5"/>
+        <rect x="36" y="50" width="8" height="5" fill="#B8963C" opacity="0.5"/>
+        <rect x="54" y="50" width="8" height="5" fill="#B8963C" opacity="0.5"/>
+      </svg>
+
+      <h1 class="hero-title">Silver<br/><em>Krown</em></h1>
+      <p class="hero-tagline">Stories that were always worth telling.</p>
+      <div class="hero-cta-row">
+        <a href="#casting" class="btn-primary">Now Casting</a>
+        <a href="#collaborate" class="btn-outline">Collaborate</a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- VISION -->
+  <section id="vision">
+    <div class="section-inner">
+      <div class="vision-grid">
+        <div class="vision-text">
+          <span class="section-eyebrow">The Vision</span>
+          <h2 class="section-title">The Crown Was<br/><em>Always Yours.</em></h2>
+          <div class="divider-gold"></div>
+          <p>Silver Krown Productions exists because <strong>the most powerful stories come from the people Hollywood forgot to cast.</strong> Women over 40. Women who have lived. Women whose complexity, wisdom, and fire don't fit neatly into a supporting role.</p>
+          <p>Founded by actress and pro-aging advocate Rolonda Rochelle, Silver Krown is an Atlanta-based production company developing original content that celebrates authentic, complex, and underrepresented voices in film and television.</p>
+          <div class="manifesto">
+            <p>"We don't wait to be discovered. We build the room and we own the table."</p>
+          </div>
+          <p>We are actively developing, producing, and casting — and we are looking for collaborators who believe that the best chapters haven't been written yet.</p>
+        </div>
+        <div class="vision-stats">
+          <div class="stat-box">
+            <span class="stat-number">1M+</span>
+            <span class="stat-label">Community Following</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-number">14+</span>
+            <span class="stat-label">Screen Credits</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-number">2016</span>
+            <span class="stat-label">Advocacy Founded</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-number">40+</span>
+            <span class="stat-label">Started After</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOW CASTING -->
+  <section id="casting">
+    <div class="section-inner">
+      <div class="casting-header">
+        <div>
+          <span class="section-eyebrow">Current Production</span>
+          <h2 class="section-title">Now<br/><em>Casting.</em></h2>
+          <div class="casting-badge" style="margin-top:1.2rem;">
+            <span class="dot"></span>
+            Active Casting Call · Summer 2026
+          </div>
+        </div>
+        <div class="casting-meta">
+          <div class="meta-item">
+            <span class="meta-label">Location</span>
+            <span class="meta-value">Atlanta, GA</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Hire Type</span>
+            <span class="meta-value">Local Hire Only</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Union Status</span>
+            <span class="meta-value">Non-Union</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Production</span>
+            <span class="meta-value">Micro Series</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Roles -->
+      <div class="roles-grid">
+        <div class="role-card">
+          <span class="role-tag tag-plum">LGBTQ Role</span>
+          <div class="role-name">Face</div>
+          <div class="role-demo">Male · 40s</div>
+          <ul class="role-traits">
+            <li>Openly Gay · Confident & Witty</li>
+            <li>Stylish / Fashionable</li>
+            <li>Commands every room he enters</li>
+          </ul>
+        </div>
+        <div class="role-card">
+          <span class="role-tag tag-gold">Lead Female</span>
+          <div class="role-name">Raven</div>
+          <div class="role-demo">Female · 40s</div>
+          <ul class="role-traits">
+            <li>Successful Entrepreneur</li>
+            <li>Hopeless Romantic</li>
+            <li>Emotionally Impulsive</li>
+          </ul>
+        </div>
+        <div class="role-card">
+          <span class="role-tag tag-silver">Supporting Male</span>
+          <div class="role-name">Lance</div>
+          <div class="role-demo">Male · 30s</div>
+          <ul class="role-traits">
+            <li>Charming & Sarcastic</li>
+            <li>Manipulative beneath charisma</li>
+            <li>The one you can't quite trust</li>
+          </ul>
+        </div>
+        <div class="role-card">
+          <span class="role-tag tag-deep">Recurring</span>
+          <div class="role-name">The Podcaster</div>
+          <div class="role-demo">Gossip · Any Gender</div>
+          <ul class="role-traits">
+            <li>Social Media Instigator</li>
+            <li>Attention Seeker</li>
+            <li>Thrives on Drama & Exposure</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Submission Requirements -->
+      <div class="submission-requirements">
+        <div>
+          <div class="req-title">What to Submit</div>
+          <ul class="req-list">
+            <li>Professional headshot (high resolution)</li>
+            <li>Acting reel or 60-second self-tape monologue</li>
+            <li>Contact information & representation if applicable</li>
+            <li>Role you are submitting for</li>
+          </ul>
+        </div>
+        <div class="deadline-block">
+          <div class="deadline-label">Submission Deadline</div>
+          <div class="deadline-date">May 29, 2026</div>
+          <div class="deadline-details">
+            <span class="deadline-detail">📍 Atlanta Local Hire Only</span>
+            <span class="deadline-detail">🎬 Shoots Summer 2026</span>
+            <span class="deadline-detail">🎭 Non-Union Production</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUBMIT FORM -->
+  <section id="submit">
+    <div class="section-inner">
+      <span class="section-eyebrow">Casting Submissions</span>
+      <h2 class="section-title">Submit Your<br/><em>Materials.</em></h2>
+      <div class="divider-gold"></div>
+      <p style="color:var(--silver);opacity:0.75;font-size:0.9rem;line-height:1.8;max-width:560px;margin-top:0.5rem;">
+        All submissions are reviewed by Rolonda Rochelle and the Silver Krown Productions team. You will be contacted directly if selected for a callback.
+      </p>
+
+      <form class="form-grid" action="#" method="POST">
+        <div class="form-group">
+          <label class="form-label" for="first-name">First Name</label>
+          <input class="form-input" type="text" id="first-name" name="first_name" placeholder="First name" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="last-name">Last Name</label>
+          <input class="form-input" type="text" id="last-name" name="last_name" placeholder="Last name" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="email">Email Address</label>
+          <input class="form-input" type="email" id="email" name="email" placeholder="your@email.com" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="phone">Phone Number</label>
+          <input class="form-input" type="tel" id="phone" name="phone" placeholder="(000) 000-0000" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="role">Role Submitting For</label>
+          <select class="form-select" id="role" name="role">
+            <option value="" disabled selected>Select a role</option>
+            <option value="face">Face (M, 40s) — LGBTQ Role</option>
+            <option value="raven">Raven (F, 40s) — Lead Female</option>
+            <option value="lance">Lance (M, 30s) — Supporting Male</option>
+            <option value="podcaster">Gossip Podcaster — Recurring</option>
+            <option value="general">General Submission</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="age-range">Age Range</label>
+          <select class="form-select" id="age-range" name="age_range">
+            <option value="" disabled selected>Select range</option>
+            <option>20s</option>
+            <option>30s</option>
+            <option>40s</option>
+            <option>50s</option>
+            <option>60s+</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <label class="form-label" for="headshot-link">Headshot Link</label>
+          <input class="form-input" type="url" id="headshot-link" name="headshot_link" placeholder="Google Drive, Dropbox, or direct link to high-res headshot" />
+          <span class="form-note">Please ensure your link is publicly accessible before submitting.</span>
+        </div>
+        <div class="form-group full">
+          <label class="form-label" for="reel-link">Acting Reel or Self-Tape Link</label>
+          <input class="form-input" type="url" id="reel-link" name="reel_link" placeholder="YouTube, Vimeo, or direct link to your reel or 60-second monologue" />
+        </div>
+        <div class="form-group full">
+          <label class="form-label" for="representation">Representation (if applicable)</label>
+          <input class="form-input" type="text" id="representation" name="representation" placeholder="Agency name and agent contact, or 'Self-Represented'" />
+        </div>
+        <div class="form-group full">
+          <label class="form-label" for="note">Brief Note</label>
+          <textarea class="form-textarea" id="note" name="note" placeholder="Tell us anything additional you'd like Silver Krown Productions to know about you and why you're right for this role..."></textarea>
+        </div>
+        <div class="form-group full">
+          <div class="form-submit">
+            <button type="submit" class="btn-primary">Submit for Consideration →</button>
+            <p class="submit-note">Submissions close May 29, 2026.<br/>Atlanta local hire only · Non-union production.</p>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOUNDER -->
+  <section id="founder">
+    <div class="section-inner">
+      <div class="founder-grid">
+        <div class="founder-image-wrap">
+          <!-- Placeholder image using Rolonda's EPK photo -->
+          <img class="founder-img" src="https://zvbb7krryk-bit.github.io/rolonda-demo/rolanda2.jpg" alt="Rolonda Rochelle — Founder, Silver Krown Productions" onerror="this.style.background='linear-gradient(135deg,#1a0a2a,#2a1a3a)';this.removeAttribute('src')" />
+        </div>
+        <div class="founder-text">
+          <span class="section-eyebrow">The Founder</span>
+          <h2 class="section-title">Rolonda<br/><em>Rochelle.</em></h2>
+          <div class="divider-gold"></div>
+          <p>Actress. Producer. Pro-Aging Advocate. Rolonda Rochelle is a Texas native who made Atlanta her home in 1993, drawn by its thriving film and television community. After 40, she made the decision to defy the odds — and she hasn't stopped since.</p>
+          <p>With 14+ screen credits spanning film, television, and digital series, a 1M+ community of followers, and Silver Krown Productions as her platform, Rolonda is not just an actress — she is a force creating the stories she always deserved to tell.</p>
+          <a href="https://zvbb7krryk-bit.github.io/rolonda-demo/rolonda-rochelle-epk.html" class="founder-link" target="_blank">View Full EPK</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COLLABORATE -->
+  <section id="collaborate">
+    <div class="section-inner">
+      <span class="section-eyebrow">Work With Us</span>
+      <h2 class="section-title">Let's Build<br/><em>Something Real.</em></h2>
+      <div class="divider-gold" style="margin:1.2rem auto;"></div>
+      <p>Silver Krown Productions is open to co-productions, writer partnerships, brand collaborations, and speaking engagements. If your vision aligns with ours — authentic stories, underrepresented voices, unapologetic creativity — we want to hear from you.</p>
+      <div class="collab-options">
+        <span class="collab-tag">Co-Production</span>
+        <span class="collab-tag">Writer Partnerships</span>
+        <span class="collab-tag">Brand Collaboration</span>
+        <span class="collab-tag">Speaking Engagements</span>
+        <span class="collab-tag">Press & Media</span>
+      </div>
+      <a href="#submit" class="btn-primary">Get In Touch →</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">Silver <span>Krown</span> Productions</div>
+      <ul class="footer-links">
+        <li><a href="#vision">Vision</a></li>
+        <li><a href="#casting">Casting</a></li>
+        <li><a href="#submit">Submit</a></li>
+        <li><a href="#founder">Founder</a></li>
+        <li><a href="#collaborate">Collaborate</a></li>
+      </ul>
+      <p class="footer-credit">
+        Cinematic Web Experience by <a href="https://bit.ly/RainManagement" target="_blank">Rain Management Solutions</a> · Cinematic Brand Experiences. Lasting Impressions.
+      </p>
+      <p class="footer-credit" style="margin-top:0.3rem;">© 2026 · Silver Krown Productions · Atlanta, Georgia · Founded by Rolonda Rochelle</p>
+    </div>
+  </footer>
+
+  <!-- SCROLL-DRIVEN CLAPPERBOARD ANIMATION -->
+  <script>
+    const canvas = document.getElementById('clapCanvas');
+    const ctx = canvas.getContext('2d');
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', () => { resize(); draw(scrollProgress); });
+
+    let scrollProgress = 0;
+
+    function lerp(a, b, t) { return a + (b - a) * t; }
+
+    function draw(t) {
+      const W = canvas.width;
+      const H = canvas.height;
+      ctx.clearRect(0, 0, W, H);
+
+      const cx = W / 2;
+      const cy = H / 2;
+
+      // Deep background pulse
+      const bgAlpha = 0.03 + t * 0.04;
+      const grd = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.max(W, H) * 0.7);
+      grd.addColorStop(0, `rgba(74,30,94,${bgAlpha})`);
+      grd.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = grd;
+      ctx.fillRect(0, 0, W, H);
+
+      // Clapperboard base size
+      const bW = Math.min(W * 0.38, 340);
+      const bH = bW * 0.72;
+      const bX = cx - bW / 2;
+      const bY = cy - bH / 2 - 30;
+
+      // Explosion offset — parts drift outward as t increases
+      const ex = t * W * 0.28;
+      const ey = t * H * 0.22;
+
+      const alpha = Math.max(0, 1 - t * 0.6);
+
+      ctx.globalAlpha = alpha;
+
+      // ── MAIN BOARD (drifts down-left) ──
+      const mbX = lerp(bX, bX - ex * 0.3, t);
+      const mbY = lerp(bY + 38, bY + 38 + ey * 0.4, t);
+      ctx.fillStyle = '#0F0F1A';
+      ctx.strokeStyle = `rgba(184,150,60,${0.7 - t * 0.4})`;
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.rect(mbX, mbY, bW, bH - 38);
+      ctx.fill();
+      ctx.stroke();
+
+      // Board stripes
+      const stripeCount = 5;
+      const stripeW = bW / stripeCount;
+      for (let i = 0; i < stripeCount; i++) {
+        ctx.fillStyle = i % 2 === 0 ? 'rgba(184,150,60,0.08)' : 'rgba(200,200,212,0.04)';
+        ctx.fillRect(mbX + i * stripeW + 4, mbY + 4, stripeW - 8, (bH - 38) - 8);
+      }
+
+      // Board text
+      ctx.globalAlpha = alpha * 0.7;
+      ctx.fillStyle = '#C8C8D4';
+      ctx.font = `${bW * 0.06}px Montserrat, sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.fillText('SILVER KROWN PRODUCTIONS', cx + (mbX - bX), mbY + (bH - 38) * 0.35);
+      ctx.font = `italic ${bW * 0.045}px Cormorant Garamond, serif`;
+      ctx.fillStyle = '#B8963C';
+      ctx.fillText('A Rolonda Rochelle Production', cx + (mbX - bX), mbY + (bH - 38) * 0.58);
+
+      ctx.globalAlpha = alpha;
+
+      // ── CLAPPER TOP (drifts up-right) ──
+      const clpX = lerp(bX, bX + ex * 0.5, t);
+      const clpY = lerp(bY, bY - ey * 0.7, t);
+      const clpAngle = lerp(0, -0.45, t);
+
+      ctx.save();
+      ctx.translate(clpX + bW / 2, clpY + 19);
+      ctx.rotate(clpAngle);
+      ctx.fillStyle = '#1A0A2A';
+      ctx.strokeStyle = `rgba(184,150,60,${0.8 - t * 0.4})`;
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.rect(-bW / 2, -19, bW, 38);
+      ctx.fill();
+      ctx.stroke();
+
+      // Clapper stripes
+      const numStripes = 6;
+      const sw = bW / numStripes;
+      for (let i = 0; i < numStripes; i++) {
+        ctx.fillStyle = i % 2 === 0 ? '#B8963C' : '#0F0F1A';
+        ctx.fillRect(-bW / 2 + i * sw, -19, sw, 38);
+      }
+      ctx.restore();
+
+      // ── CORNER SCREWS (drift outward) ──
+      const screwPositions = [
+        { ox: bX + 14, oy: bY + 48, dx: -1, dy: -1 },
+        { ox: bX + bW - 14, oy: bY + 48, dx: 1, dy: -1 },
+        { ox: bX + 14, oy: bY + bH - 14, dx: -1, dy: 1 },
+        { ox: bX + bW - 14, oy: bY + bH - 14, dx: 1, dy: 1 },
+      ];
+
+      screwPositions.forEach(s => {
+        const sx = lerp(s.ox, s.ox + s.dx * ex * 0.9, t);
+        const sy = lerp(s.oy, s.oy + s.dy * ey * 0.9, t);
+        ctx.strokeStyle = `rgba(184,150,60,${0.6 - t * 0.3})`;
+        ctx.lineWidth = 1;
+        ctx.globalAlpha = alpha * 0.8;
+        ctx.beginPath();
+        ctx.arc(sx, sy, 5, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(sx - 3.5, sy);
+        ctx.lineTo(sx + 3.5, sy);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(sx, sy - 3.5);
+        ctx.lineTo(sx, sy + 3.5);
+        ctx.stroke();
+      });
+
+      // ── FLOATING PARTICLES ──
+      ctx.globalAlpha = alpha * 0.4;
+      const seed = 42;
+      for (let i = 0; i < 18; i++) {
+        const angle = (i / 18) * Math.PI * 2;
+        const radius = (80 + (i * 17) % 120) * t;
+        const px = cx + Math.cos(angle + seed) * radius;
+        const py = cy + Math.sin(angle + seed) * radius * 0.7;
+        const size = 1.5 + (i % 3) * 1.2;
+        ctx.fillStyle = i % 3 === 0 ? '#B8963C' : '#C8C8D4';
+        ctx.beginPath();
+        ctx.arc(px, py, size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      ctx.globalAlpha = 1;
+    }
+
+    // Scroll driver
+    const hero = document.querySelector('.hero');
+
+    function onScroll() {
+      const heroH = hero.offsetHeight;
+      const scrolled = window.scrollY;
+      scrollProgress = Math.min(1, scrolled / (heroH * 0.7));
+      draw(scrollProgress);
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    draw(0);
+
+    // Scroll-triggered section reveals
+    const reveals = document.querySelectorAll('.role-card, .stat-box, .req-list li');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.15 });
+
+    reveals.forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
